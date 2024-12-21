@@ -4,6 +4,7 @@ import connectDB  from './Config/dbConfig.js';
 import UserRouter from './Routes/Users/USerRouter.js';
 import AuthRouter from './Routes/Auth/AuthRouter.js';
 import cookieParser from 'cookie-parser';
+import ProductRouter from './Routes/Products/ProductRouter.js';
 
 // create express app
 const app = express();
@@ -11,13 +12,16 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
+app.use(express.text());
 
 // any api with /users will be handled by UserRouter
 app.use('/users',UserRouter);
 
+// any api with /products will be handled by ProductRouter
+app.use('/products',ProductRouter);
+
 // login route
 app.use('/auth',AuthRouter);
-
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);
