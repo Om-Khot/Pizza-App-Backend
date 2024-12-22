@@ -49,4 +49,16 @@ async function isLoggedIn(req, res, next) {
     
 };
 
-export { isLoggedIn };
+async function isAdmin(req, res, next) {
+    if(req.user.role !== "ADMIN"){
+        return res.status(401).json({
+            success: false,
+            data:{},
+            error: "Not authorized",
+            message: "User is not an admin" 
+        });
+    }
+    next();
+}
+
+export { isLoggedIn , isAdmin };

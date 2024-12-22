@@ -21,14 +21,16 @@ async function loginServ(authDetails) {
     };
 
     // if password is correct, return the jwt token
-    const token = jwt.sign({email: user.email, id: user._id}, JWT_SECRET ,{
+    const UserRole = authDetails.role ? authDetails.role : "USER";
+    console.log("UserRole is", UserRole);
+    const token = jwt.sign({email: user.email, id: user._id, role : UserRole}, JWT_SECRET ,{
         expiresIn: JWT_EXPIRY
     });
 
     return {token, userData:{
         email: user.email,
         firstName: user.firstName,
-        role: user.role
+        role: UserRole
     }};
 };
 
