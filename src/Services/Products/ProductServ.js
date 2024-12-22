@@ -1,5 +1,5 @@
 import cloudinary from "../../Config/cloudinaryConfig.js";
-import { getProductByNameRepo, createProductRepo } from "../../Repositories/Products/ProductRepo.js";
+import { getProductByNameRepo, createProductRepo, getProductByIDRepo } from "../../Repositories/Products/ProductRepo.js";
 import fs from 'fs/promises';
 async function findProductService(productName) {
     // find product in database
@@ -56,4 +56,14 @@ async function createProductService(productDetails) {
 
 };
 
-export { findProductService, createProductService };
+
+async function findProductByIDServ(productId){
+    try {
+        const product = await getProductByIDRepo(productId);
+        return product;
+    } catch (error) {
+        console.log(error);
+        throw {message: "Internal Server Error", statusCode: 500};       
+    }    
+}
+export { findProductService, createProductService , findProductByIDServ};

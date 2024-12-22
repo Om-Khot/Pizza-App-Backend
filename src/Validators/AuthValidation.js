@@ -3,6 +3,7 @@ import { JWT_SECRET } from "../../src/Config/serverConfig.js";
 
 async function isLoggedIn(req, res, next) {
 
+    console.log("isLogged in hits");
     const token = req.cookies["authToken"];
     console.log(token);
 

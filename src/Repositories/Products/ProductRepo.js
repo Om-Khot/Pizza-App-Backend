@@ -26,4 +26,19 @@ async function getProductByNameRepo(productName) {
     }
 };
 
-export { createProductRepo, getProductByNameRepo };
+async function getProductByIDRepo(productId) {
+    // find product in database
+    try {
+        const product = await Product.findById(productId);
+        if(!product) {
+            return null;
+        }
+        return product;
+    }
+    catch (error) {
+        console.log(error);
+        throw {message: "Internal Server Error", statusCode: 500};
+    }
+};
+
+export { createProductRepo, getProductByNameRepo , getProductByIDRepo};
